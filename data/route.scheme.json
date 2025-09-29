@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Routes",
+  "description": "Bus routes to navigate",
+  "type": "object",
+  "properties": {
+    "routeNumber": {
+      "description": "Unique identifier of bus",
+      "type": "integer",
+      "minimum": 1
+    },
+    "origin": {
+      "description": "Starting point of the bus",
+      "type": "string",
+      "minLength": 2
+    },
+    "destination": {
+      "description": "Ending point of the bus",
+      "type": "string",
+      "minLength": 2
+    },
+    "distance": {
+      "description": "Distance covered by the bus in kms",
+      "type": "integer",
+      "minimum": 1
+    },
+    "stops": {
+      "description": "List of stops along the route",
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "stop_number": {
+            "description": "Sequential number of the stop",
+            "type": "integer",
+            "minimum": 1
+          },
+          "stop_name": {
+            "description": "Name of the bus stop",
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        "required": ["stop_number", "stop_name"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["routeNumber", "origin", "destination", "distance", "stops"],
+  "additionalProperties": false
+}
