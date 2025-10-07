@@ -47,6 +47,6 @@
       }
     }
   },
-  "required": ["routeNumber", "origin", "destination", "distance", "stops"],
+  "required": ["routeNumber", "origin", "destination", "stops"],
   "additionalProperties": false
 }

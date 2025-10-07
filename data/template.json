@@ -1,0 +1,24 @@
+{
+  "routeNumber": 0,
+  "origin": "Location 1",
+  "destination": "Location 2",
+  "distance": 10,
+  "stops": [
+    {
+      "stop_number": 1,
+      "stop_name": "Stop name"
+    },
+    {
+      "stop_number": 2,
+      "stop_name": "Another Stop"
+    },
+    {
+      "stop_number": 3,
+      "stop_name": "Also a Stop"
+    },
+    {
+      "stop_number": 4,
+      "stop_name": "Other Stop"
+    }
+  ]
+}

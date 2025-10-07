@@ -1,7 +1,7 @@
 {
-    "routeNumber": "102",
+    "routeNumber": "102C",
     "origin": "Gandhipuram",
-    "destination": "Press Colony - MTP rd",
+    "destination": "Karamadai",
     "stops": [
         {
             "stop_number": 1,
@@ -114,6 +114,10 @@
         {
             "stop_number": 28,
             "stop_name": "Press Colony - MTP rd"
+        },
+        {
+            "stop_number": 29,
+            "stop_name": "Karamadai"
         }
     ]
 }

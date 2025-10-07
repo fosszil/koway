@@ -1,0 +1,127 @@
+{
+    "routeNumber": "27A",
+    "origin": "Ukkadam",
+    "destination": "Idigarai",
+    "stops": [
+        {
+            "stop_number": 1,
+            "stop_name": "Ukkadam"
+        },
+        {
+            "stop_number": 2,
+            "stop_name": "BigBazaar"
+        },
+        {
+            "stop_number": 3,
+            "stop_name": "Town Hall"
+        },
+        {
+            "stop_number": 4,
+            "stop_name": "Government Hospital"
+        },
+        {
+            "stop_number": 5,
+            "stop_name": "Railway Station"
+        },
+        {
+            "stop_number": 6,
+            "stop_name": "Collectorate/DSP"
+        },
+        {
+            "stop_number": 7,
+            "stop_name": "Uppilipalayam - Avinashi rd"
+        },
+        {
+            "stop_number": 8,
+            "stop_name": "VOC Park"
+        },
+        {
+            "stop_number": 9,
+            "stop_name": "Park Gate - Nanjappa rd"
+        },
+        {
+            "stop_number": 10,
+            "stop_name": "Alankar - Nanjappa rd"
+        },
+        {
+            "stop_number": 11,
+            "stop_name": "Gandhipuram"
+        },
+        {
+            "stop_number": 12,
+            "stop_name": "100 feet/GP"
+        },
+        {
+            "stop_number": 13,
+            "stop_name": "Kalyan - 100ft rd"
+        },
+        {
+            "stop_number": 14,
+            "stop_name": "Karpagam Complex - 100ft"
+        },
+        {
+            "stop_number": 15,
+            "stop_name": "Power House"
+        },
+        {
+            "stop_number": 16,
+            "stop_name": "TVS - MTP rd"
+        },
+        {
+            "stop_number": 17,
+            "stop_name": "Muthu theatre - MTP rd"
+        },
+        {
+            "stop_number": 18,
+            "stop_name": "Murugan mills - MTP rd"
+        },
+        {
+            "stop_number": 19,
+            "stop_name": "Saibaba Kovil"
+        },
+        {
+            "stop_number": 20,
+            "stop_name": "Eru Company - MTP rd"
+        },
+        {
+            "stop_number": 21,
+            "stop_name": "Housing unit - Kovundampalayam"
+        },
+        {
+            "stop_number": 22,
+            "stop_name": "Kavundampalayam"
+        },
+        {
+            "stop_number": 23,
+            "stop_name": "Cheran Nagar - MTP rd"
+        },
+        {
+            "stop_number": 24,
+            "stop_name": "ITI - MTP rd"
+        },
+        {
+            "stop_number": 25,
+            "stop_name": "GN mills - MTP rd"
+        },
+        {
+            "stop_number": 26,
+            "stop_name": "Vellakinar Pirivu - MTP rd"
+        },
+        {
+            "stop_number": 27,
+            "stop_name": "Thudiyalur"
+        },
+        {
+            "stop_number": 28,
+            "stop_name": "Vadamadurai"
+        },
+        {
+            "stop_number": 29,
+            "stop_name": "NGGO Colony"
+        },
+        {
+            "stop_number": 30,
+            "stop_name": "Idigarai"
+        }
+    ]
+}

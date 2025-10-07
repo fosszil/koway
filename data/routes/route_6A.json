@@ -1,7 +1,7 @@
 {
-    "routeNumber": "102",
+    "routeNumber": "6A",
     "origin": "Gandhipuram",
-    "destination": "Press Colony - MTP rd",
+    "destination": "Periyanaickenpalayam",
     "stops": [
         {
             "stop_number": 1,
@@ -98,22 +98,6 @@
         {
             "stop_number": 24,
             "stop_name": "Periyanaickenpalayam"
-        },
-        {
-            "stop_number": 25,
-            "stop_name": "Pricol - MTP rd"
-        },
-        {
-            "stop_number": 26,
-            "stop_name": "Jothipuram"
-        },
-        {
-            "stop_number": 27,
-            "stop_name": "Veerapandi Pirivu - MTP rd"
-        },
-        {
-            "stop_number": 28,
-            "stop_name": "Press Colony - MTP rd"
         }
     ]
 }

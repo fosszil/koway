@@ -1,0 +1,75 @@
+{
+    "routeNumber": "48A",
+    "origin": "Gandhipuram",
+    "destination": "Velanthavalam",
+    "stops": [
+        {
+            "stop_number": 1,
+            "stop_name": "Gandhipuram"
+        },
+        {
+            "stop_number": 2,
+            "stop_name": "Alankar - Nanjappa rd"
+        },
+        {
+            "stop_number": 3,
+            "stop_name": "Park Gate - Nanjappa rd"
+        },
+        {
+            "stop_number": 4,
+            "stop_name": "VOC Park"
+        },
+        {
+            "stop_number": 5,
+            "stop_name": "Uppilipalayam - Avinashi rd"
+        },
+        {
+            "stop_number": 6,
+            "stop_name": "Marakkadai"
+        },
+        {
+            "stop_number": 7,
+            "stop_name": "RMS Office"
+        },
+        {
+            "stop_number": 8,
+            "stop_name": "Town Hall"
+        },
+        {
+            "stop_number": 9,
+            "stop_name": "BigBazaar"
+        },
+        {
+            "stop_number": 10,
+            "stop_name": "Ukkadam"
+        },
+        {
+            "stop_number": 11,
+            "stop_name": "Karumbukkadai - Ukkadam"
+        },
+        {
+            "stop_number": 12,
+            "stop_name": "Aathupalam/L&T tollbooth"
+        },
+        {
+            "stop_number": 13,
+            "stop_name": "Kurichi"
+        },
+        {
+            "stop_number": 14,
+            "stop_name": "Sundharapuram"
+        },
+        {
+            "stop_number": 15,
+            "stop_name": "Housing Unit - Kurichi"
+        },
+        {
+            "stop_number": 16,
+            "stop_name": "Palathurai"
+        },
+        {
+            "stop_number": 17,
+            "stop_name": "Velanthavalam"
+        }
+    ]
+}
