@@ -4,95 +4,72 @@
     "destination": "Karunya University",
     "stops": [
         {
-            "stop_number": 1,
             "stop_name": "Gandhipuram"
         },
         {
-            "stop_number": 2,
             "stop_name": "Alankar - Nanjappa rd"
         },
         {
-            "stop_number": 3,
             "stop_name": "Park Gate - Nanjappa rd"
         },
         {
-            "stop_number": 4,
             "stop_name": "VOC Park"
         },
         {
-            "stop_number": 5,
             "stop_name": "Uppilipalayam - Avinashi rd"
         },
         {
-            "stop_number": 6,
             "stop_name": "Collectorate/DSP"
         },
         {
-            "stop_number": 7,
             "stop_name": "Railway Station"
         },
         {
-            "stop_number": 8,
             "stop_name": "Government Hospital"
         },
         {
-            "stop_number": 9,
             "stop_name": "Town Hall"
         },
         {
-            "stop_number": 10,
             "stop_name": "Karuppagoundan st"
         },
         {
-            "stop_number": 11,
             "stop_name": "Chetti veedhi - Perur rd"
         },
         {
-            "stop_number": 12,
             "stop_name": "Shivalaya - Perur rd"
         },
         {
-            "stop_number": 13,
             "stop_name": "Muthusamy Colony - Selvapuram"
         },
         {
-            "stop_number": 14,
             "stop_name": "LIC Colony - Selvapuram"
         },
         {
-            "stop_number": 15,
             "stop_name": "Telungupalayam Pirivu - Perur"
         },
         {
-            "stop_number": 16,
             "stop_name": "Aathupalam - Perur rd"
         },
         {
-            "stop_number": 17,
             "stop_name": "Tamil kalloori - Perur"
         },
         {
-            "stop_number": 18,
             "stop_name": "Perur"
         },
         {
-            "stop_number": 19,
             "stop_name": "Kovai Kondattam"
         },
         {
-            "stop_number": 20,
             "stop_name": "Mathampatti"
         },
         {
-            "stop_number": 21,
             "stop_name": "Aalandhurai"
         },
         {
-            "stop_number": 22,
             "stop_name": "Iruttupallam - Siruvani rd"
         },
         {
-            "stop_number": 23,
             "stop_name": "Karunya University"
         }
     ]

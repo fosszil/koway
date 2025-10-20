@@ -4,99 +4,75 @@
     "destination": "Maruthamalai",
     "stops": [
         {
-            "stop_number": 1,
             "stop_name": "Nanjundapuram"
         },
         {
-            "stop_number": 2,
             "stop_name": "Ramanathapuram"
         },
         {
-            "stop_number": 3,
             "stop_name": "Olympus - Ramanathapuram"
         },
         {
-            "stop_number": 4,
             "stop_name": "Sungam"
         },
         {
-            "stop_number": 5,
             "stop_name": "Sreepathi/Kannan"
         },
         {
-            "stop_number": 6,
             "stop_name": "Rainbow - Trichy rd"
         },
         {
-            "stop_number": 7,
             "stop_name": "Government Hospital"
         },
         {
-            "stop_number": 8,
             "stop_name": "Railway Station"
         },
         {
-            "stop_number": 9,
             "stop_name": "Collectorate/DSP"
         },
         {
-            "stop_number": 10,
             "stop_name": "Sukravarpettai"
         },
         {
-            "stop_number": 11,
             "stop_name": "Gandhi Park"
         },
         {
-            "stop_number": 12,
             "stop_name": "Pal Company(Aavin)"
         },
         {
-            "stop_number": 13,
             "stop_name": "Lawley Road"
         },
         {
-            "stop_number": 14,
             "stop_name": "Agricultural University"
         },
         {
-            "stop_number": 15,
             "stop_name": "PN pudur - Vadavalli"
         },
         {
-            "stop_number": 16,
             "stop_name": "Mullai Nagar - Vadavalli"
         },
         {
-            "stop_number": 17,
             "stop_name": "Vadavalli"
         },
         {
-            "stop_number": 18,
             "stop_name": "Aalamaram - Vadavalli"
         },
         {
-            "stop_number": 19,
             "stop_name": "Navavoor Pirivu"
         },
         {
-            "stop_number": 20,
             "stop_name": "Kalveerampalayam"
         },
         {
-            "stop_number": 21,
             "stop_name": "Bharathiyar University"
         },
         {
-            "stop_number": 22,
             "stop_name": "IOB Colony - Maruthamalai"
         },
         {
-            "stop_number": 23,
             "stop_name": "Law College"
         },
         {
-            "stop_number": 24,
             "stop_name": "Maruthamalai"
         }
     ]

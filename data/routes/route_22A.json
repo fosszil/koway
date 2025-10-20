@@ -4,143 +4,108 @@
     "destination": "Veera Keralam",
     "stops": [
         {
-            "stop_number": 1,
             "stop_name": "Chinniyampalayam"
         },
         {
-            "stop_number": 2,
             "stop_name": "Rangasamy Goundan pudur"
         },
         {
-            "stop_number": 3,
             "stop_name": "Thottipalayam Pirivu"
         },
         {
-            "stop_number": 4,
             "stop_name": "Goldwins"
         },
         {
-            "stop_number": 5,
             "stop_name": "KMCH - Avinashi rd"
         },
         {
-            "stop_number": 6,
             "stop_name": "SITRA/Airport"
         },
         {
-            "stop_number": 7,
             "stop_name": "PSG Arts"
         },
         {
-            "stop_number": 8,
             "stop_name": "Polytechnic - Avinashi rd"
         },
         {
-            "stop_number": 9,
             "stop_name": "CIT - CODISSIA"
         },
         {
-            "stop_number": 10,
             "stop_name": "CMC - Avinashi rd"
         },
         {
-            "stop_number": 11,
             "stop_name": "Hope College"
         },
         {
-            "stop_number": 12,
             "stop_name": "Varatharaja Mills"
         },
         {
-            "stop_number": 13,
             "stop_name": "PSG Krishnammal"
         },
         {
-            "stop_number": 14,
             "stop_name": "PSG Tech - Peelamedu"
         },
         {
-            "stop_number": 15,
             "stop_name": "Suguna Kalyana Mandapam"
         },
         {
-            "stop_number": 16,
             "stop_name": "Nava India - Avinashi rd"
         },
         {
-            "stop_number": 17,
             "stop_name": "Lakshmi Mills Junction"
         },
         {
-            "stop_number": 18,
             "stop_name": "Mani School/GKNM Hospl"
         },
         {
-            "stop_number": 19,
             "stop_name": "Womens Polytechnic"
         },
         {
-            "stop_number": 20,
             "stop_name": "Gandhipuram"
         },
         {
-            "stop_number": 21,
             "stop_name": "100 feet/GP"
         },
         {
-            "stop_number": 22,
             "stop_name": "Kalyan - 100ft rd"
         },
         {
-            "stop_number": 23,
             "stop_name": "Karpagam Complex - 100ft"
         },
         {
-            "stop_number": 24,
             "stop_name": "Power House"
         },
         {
-            "stop_number": 25,
             "stop_name": "TVS - MTP rd"
         },
         {
-            "stop_number": 26,
             "stop_name": "Muthu theatre - MTP rd"
         },
         {
-            "stop_number": 27,
             "stop_name": "Murugan mills - MTP rd"
         },
         {
-            "stop_number": 28,
             "stop_name": "Saibaba Kovil"
         },
         {
-            "stop_number": 29,
             "stop_name": "Puliamaram stop - NSR rd"
         },
         {
-            "stop_number": 30,
             "stop_name": "Saibaba Colony"
         },
         {
-            "stop_number": 31,
             "stop_name": "Venkittapuram"
         },
         {
-            "stop_number": 32,
             "stop_name": "GCT - Thadagam rd"
         },
         {
-            "stop_number": 33,
             "stop_name": "Lawley Road"
         },
         {
-            "stop_number": 34,
             "stop_name": "Agricultural University"
         },
         {
-            "stop_number": 35,
             "stop_name": "Veera Keralam"
         }
     ]
