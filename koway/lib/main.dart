@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-
-void main(){
+import 'screens/route_list.dart';
+import 'services/route_service.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final routes = await fetchRoutes();
+  for (var r in routes) {
+    print("${r.routeNumber}: ${r.origin} → ${r.destination} (${r.stops.length} stops)");
+  }
   runApp(const KowayTravel());
 }
+
 
 class KowayTravel extends StatelessWidget{
   const KowayTravel({super.key});
@@ -15,7 +22,7 @@ class KowayTravel extends StatelessWidget{
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const RoutesListScreen(),
     );
   }
 }
