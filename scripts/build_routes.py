@@ -1,8 +1,8 @@
 import os, json
 from jsonschema import validate, ValidationError
 
-ROUTES_DIR = "data/routes"
-SCHEMA_FILE = "data/route.scheme.json"
+ROUTES_DIR = "/home/aaqil/Projects/koway/data/routes"
+SCHEMA_FILE = "/home/aaqil/Projects/koway/data/route.scheme.json"
 OUTPUT_FILE = "routes.json"
 
 with open(SCHEMA_FILE,'r',encoding="utf-8") as sf:

@@ -6,7 +6,7 @@
   "properties": {
     "routeNumber": {
       "description": "Unique identifier of bus",
-      "type": "integer",
+      "type": "string",
       "minimum": 1
     },
     "origin": {
@@ -37,7 +37,7 @@
             "minLength": 2
           }
         },
-        "required": ["stop_number", "stop_name"],
+        "required": ["stop_name"],
         "additionalProperties": false
       }
     }
