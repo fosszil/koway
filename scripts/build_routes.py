@@ -1,9 +1,9 @@
 import os, json
 from jsonschema import validate, ValidationError
 
-ROUTES_DIR = "/home/aaqil/Projects/koway/data/routes"
-SCHEMA_FILE = "/home/aaqil/Projects/koway/data/route.scheme.json"
-OUTPUT_FILE = "routes.json"
+ROUTES_DIR = "../data/routes"
+SCHEMA_FILE = "../data/route.scheme.json"
+OUTPUT_FILE = "../koway/assets/routes.json"
 
 with open(SCHEMA_FILE,'r',encoding="utf-8") as sf:
     schema = json.load(sf)
@@ -27,4 +27,4 @@ with open(OUTPUT_FILE, "w", encoding="utf-8") as m:
     json.dump(output, m, indent=2, ensure_ascii=False)
 
 print(f"✅ Done compiling {len(routes)} routes into {OUTPUT_FILE}")
-print(f"Compiled {len(done_routes)} {done_routes} routes into {OUTPUT_FILE}")
+print(f"Compiled {len(done_routes)} routes into {OUTPUT_FILE}")
