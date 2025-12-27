@@ -1,2 +1,2 @@
 # koway
-find your way around
+an open‑source, community‑driven city transport & travel app for Coimbatore.

@@ -1,5 +1,5 @@
 class BusRoute {
-  final int routeNumber;
+  final String routeNumber;
   final String origin;
   final String destination;
   final List<Stop> stops;
@@ -12,16 +12,21 @@ class BusRoute {
   });
 
   factory BusRoute.fromJson(Map<String, dynamic> json) {
+    var rawStops = json["stops"] as List<dynamic>? ?? [];
+    
+    List<Stop> parsedStops = rawStops.asMap().entries.map((entry) {
+      int index = entry.key;
+      Map<String, dynamic> value = Map<String, dynamic>.from(entry.value);
+      
+      // Pass the index + 1 so stops are numbered 1, 2, 3...
+      return Stop.fromJson(value, fallbackNumber: index + 1);
+    }).toList();
+
     return BusRoute(
-      // Use safe defaults in case fields are missing or null
-      routeNumber: json["routeNumber"] is int
-          ? json["routeNumber"]
-          : int.tryParse(json["routeNumber"]?.toString() ?? "0") ?? 0,
+      routeNumber: json["routeNumber"].toString(),
       origin: json["origin"] ?? "Unknown",
       destination: json["destination"] ?? "Unknown",
-      stops: (json["stops"] as List<dynamic>? ?? [])
-          .map((x) => Stop.fromJson(Map<String, dynamic>.from(x)))
-          .toList(),
+      stops: parsedStops,
     );
   }
 
@@ -42,11 +47,11 @@ class Stop {
     required this.stopName,
   });
 
-  factory Stop.fromJson(Map<String, dynamic> json) {
+  factory Stop.fromJson(Map<String, dynamic> json, {int fallbackNumber = 0}) {
     return Stop(
-      stopNumber: json["stop_number"] is int
-          ? json["stop_number"]
-          : int.tryParse(json["stop_number"]?.toString() ?? "0") ?? 0,
+      stopNumber: json["stop_number"] != null 
+          ? int.tryParse(json["stop_number"].toString()) ?? fallbackNumber 
+          : fallbackNumber,
       stopName: json["stop_name"] ?? "Unnamed Stop",
     );
   }
