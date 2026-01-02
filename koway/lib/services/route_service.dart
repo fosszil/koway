@@ -7,10 +7,8 @@ Future<List<BusRoute>> fetchRoutes() async {
     final String response = await rootBundle.loadString('assets/routes.json');
     final Map<String, dynamic> decoded = json.decode(response);
 
-    // Extract the list under "routes"
     final List<dynamic> routesList = decoded["routes"] ?? [];
 
-    // Convert each route entry to a BusRoute object
     return routesList
         .map((e) => BusRoute.fromJson(Map<String, dynamic>.from(e)))
         .toList();
