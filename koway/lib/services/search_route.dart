@@ -1,17 +1,28 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import '../models/bus_routes.dart';
 
-Future<List<BusRoute>> searchRoutes(String origin, String destination) async {
+Future<List<String>> searchRoutes(String origin, String destination) async {
   try {
     final String response = await rootBundle.loadString('assets/hashed_routes.json');
-    final Map<String, dynamic> decoded = json.decode(response);
+    final Map<String, dynamic> routeIndex = json.decode(response);
 
-    final List<dynamic> routeIndex = decoded["routes"] ?? [];
+    if(!routeIndex.containsKey(origin) || !routeIndex.containsKey(destination)){
+      return [];
+    }
 
-    return routeIndex
-        .map((e) => BusRoute.fromJson(Map<String, dynamic>.from(e)))
-        .toList();
+    List<String> originRoutes = routeIndex[origin];
+    List<String> destRoutes = routeIndex[destination];
+
+    List<String> foundRoutes = [];
+
+    for(var route in originRoutes){
+      if(destRoutes.contains(route)){
+        foundRoutes.add(route);
+      }
+    }
+
+    return foundRoutes;
+
   } catch (e) {
     throw Exception("Error loading routes: $e");
   }
