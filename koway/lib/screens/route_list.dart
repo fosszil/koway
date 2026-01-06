@@ -16,7 +16,7 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
   @override
   void initState() {
     super.initState();
-    futureRoutes = fetchRoutes();
+    futureRoutes = RouteService.instance.fetchAllRoutes();
   }
 
   @override

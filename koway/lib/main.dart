@@ -3,7 +3,7 @@ import 'screens/route_list.dart';
 import 'services/route_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final routes = await fetchRoutes();
+  final routes = await RouteService.instance.fetchAllRoutes();
   for (var r in routes) {
     print("${r.routeNumber}: ${r.origin} → ${r.destination} (${r.stops.length} stops)");
   }
