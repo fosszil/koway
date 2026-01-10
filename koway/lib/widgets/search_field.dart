@@ -2,32 +2,31 @@ import 'package:flutter/material.dart';
 
 class SearchField extends StatefulWidget {
   final String label;
+  final TextEditingController controller;
+  final VoidCallback? onSubmitted;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onClear;  
+  
 
-  const SearchField({super.key,required this.label});
+  const SearchField({
+    super.key,
+    required this.label,
+    required this.controller,
+    this.onSubmitted,
+    this.onChanged,
+    this.onClear,
+  });
 
   @override
   State<SearchField> createState() => _SearchFieldState();
 }
 
 class _SearchFieldState extends State<SearchField> {
-  late final TextEditingController _controller;
-
-  @override
-  void initState(){
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose(){
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _controller,
+      controller: widget.controller,
+      onChanged: (_)=> widget.onSubmitted?.call(),
       decoration: InputDecoration(
         labelText: widget.label,
         border: OutlineInputBorder(
@@ -35,7 +34,14 @@ class _SearchFieldState extends State<SearchField> {
         ),
         filled: true,
         fillColor: Theme.of(context).scaffoldBackgroundColor,
-        suffixIcon: IconButton(onPressed: _controller.clear, icon: Icon(Icons.clear))
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: (){
+            if (widget.onChanged != null) widget.onChanged!("");
+            if (widget.onClear != null) widget.onClear!();
+            setState(() {});
+          },
+        )
       ),  
     );
   }
