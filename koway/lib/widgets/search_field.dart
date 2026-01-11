@@ -37,6 +37,7 @@ class _SearchFieldState extends State<SearchField> {
         suffixIcon: IconButton(
           icon: const Icon(Icons.clear),
           onPressed: (){
+            widget.controller.clear();
             if (widget.onChanged != null) widget.onChanged!("");
             if (widget.onClear != null) widget.onClear!();
             setState(() {});
