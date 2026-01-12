@@ -26,7 +26,11 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
-      onChanged: (_)=> widget.onSubmitted?.call(),
+      onChanged: (value) {
+        if (widget.onChanged != null){
+          widget.onChanged!(value);
+        }
+      },
       decoration: InputDecoration(
         labelText: widget.label,
         border: OutlineInputBorder(
@@ -34,15 +38,16 @@ class _SearchFieldState extends State<SearchField> {
         ),
         filled: true,
         fillColor: Theme.of(context).scaffoldBackgroundColor,
-        suffixIcon: IconButton(
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: widget.controller.text.isNotEmpty ? IconButton(
           icon: const Icon(Icons.clear),
           onPressed: (){
             widget.controller.clear();
             if (widget.onChanged != null) widget.onChanged!("");
-            if (widget.onClear != null) widget.onClear!();
             setState(() {});
           },
         )
+        : null,
       ),  
     );
   }
