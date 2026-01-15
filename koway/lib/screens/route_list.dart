@@ -59,9 +59,6 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Coimbatore Bus Routes"),
-      ),
       body: Column(
         children: [
           Padding(
