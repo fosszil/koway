@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/route_list.dart';
+import 'screens/route_search.dart';
+
 import 'services/route_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +24,7 @@ class KowayTravel extends StatelessWidget{
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const RoutesListScreen(),
+      home: const RouteSearchScreen(),
     );
   }
 }

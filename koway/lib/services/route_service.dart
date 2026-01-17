@@ -7,17 +7,19 @@ class RouteService {
   static final RouteService instance = RouteService._init();
   RouteService._init();
 
-  List<BusRoute> _allRoutes = [];
-  Map<String, dynamic> _searchIndex = {};
+  List<BusRoute> _allRoutes = []; 
+
+  Map<String, List<String>> _searchIndex = {};
 
   Future<List<BusRoute>> fetchAllRoutes() async {
-    //Caching
+    await loadSearchIndex();
+
     if (_allRoutes.isNotEmpty) return _allRoutes;
 
     try {
       final String response = await rootBundle.loadString('assets/routes.json');
       final Map<String, dynamic> decoded = json.decode(response);
-      
+
       final List<dynamic> routesList = decoded["routes"] ?? [];
 
       _allRoutes = routesList
@@ -26,49 +28,80 @@ class RouteService {
 
       return _allRoutes;
     } catch (e) {
-      log("❌ Error loading routes: $e");
+      log("Error loading routes: $e");
       return [];
     }
   }
-
 
   Future<void> loadSearchIndex() async {
     if (_searchIndex.isNotEmpty) return;
 
     try {
-      final String response = await rootBundle.loadString('assets/hashed_routes.json');
-      _searchIndex = json.decode(response);
+      final String response = await rootBundle.loadString(
+        'assets/hashed_routes.json',
+      );
+      final dynamic decoded = json.decode(response);
+
+      if (decoded is Map<String, dynamic>) {
+        _searchIndex = {};
+        decoded.forEach((key, value) {
+          if (value is List) {
+            _searchIndex[key] = List<String>.from(
+              value.map((e) => e.toString()),
+            );
+          }
+        });
+        print("Search index loaded. Total stops: ${_searchIndex.length}");
+      }
     } catch (e) {
-      print("❌ Error loading search index: $e");
+      print("rror loading search index: $e");
     }
   }
 
   List<String> get allStops {
     var stops = _searchIndex.keys.toList();
-    stops.sort(); 
+    stops.sort();
     return stops;
   }
 
-  List<String> findRoutesBetween(String origin, String dest) {
+  List<String> findRoutesBetween(String originInput, String destInput) {
     if (_searchIndex.isEmpty) {
-      log("⚠️ Warning: Search index not loaded.");
-      return [];
-    }
-    if (!_searchIndex.containsKey(origin) || !_searchIndex.containsKey(dest)) {
+      print("Search index is empty");
       return [];
     }
 
-    List<String> originRoutes = List<String>.from(_searchIndex[origin]);
-    List<String> destRoutes = List<String>.from(_searchIndex[dest]);
-
-    List<String> commonRoutes = [];
-
-    for (var route in originRoutes) {
-      if (destRoutes.contains(route)) {
-        commonRoutes.add(route);
+    String? findKeyIgnoringCase(String input) {
+      String cleanInput = input.trim().toLowerCase();
+      try {
+        return _searchIndex.keys.firstWhere((key) {
+          return key.trim().toLowerCase() == cleanInput;
+        });
+      } catch (e) {
+        return null;
       }
     }
-    
+
+    String? originKey = findKeyIgnoringCase(originInput);
+    String? destKey = findKeyIgnoringCase(destInput);
+
+    if (originKey == null) {
+      print("'$originInput' not found in database.");
+      return [];
+    }
+    if (destKey == null) {
+      print("Destination '$destInput' not found in database.");
+      return [];
+    }
+
+    print("Found keys: '$originKey' and '$destKey'");
+
+    Set<String> originBuses = _searchIndex[originKey]!.toSet();
+    List<String> destBuses = _searchIndex[destKey]!;
+
+    List<String> commonRoutes = destBuses
+        .where((busId) => originBuses.contains(busId))
+        .toList();
+
     return commonRoutes;
   }
 }
