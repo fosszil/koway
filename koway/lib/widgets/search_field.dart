@@ -26,7 +26,15 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
+      onSubmitted: (_) {
+        if (widget.onSubmitted != null) {
+          widget.onSubmitted!();
+        }
+      },
+      textInputAction: TextInputAction.search,
+      
       onChanged: (value) {
+        setState(() {});
         if (widget.onChanged != null){
           widget.onChanged!(value);
         }
