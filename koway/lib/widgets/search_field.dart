@@ -6,7 +6,8 @@ class SearchField extends StatefulWidget {
   final VoidCallback? onSubmitted;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onClear;  
-  
+
+  final List<String> suggestions; 
 
   const SearchField({
     super.key,
@@ -15,6 +16,7 @@ class SearchField extends StatefulWidget {
     this.onSubmitted,
     this.onChanged,
     this.onClear,
+    this.suggestions = const[];
   });
 
   @override
