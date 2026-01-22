@@ -16,7 +16,7 @@ class SearchField extends StatefulWidget {
     this.onSubmitted,
     this.onChanged,
     this.onClear,
-    this.suggestions = const[];
+    this.suggestions = const[]
   });
 
   @override
@@ -24,6 +24,31 @@ class SearchField extends StatefulWidget {
 }
 
 class _SearchFieldState extends State<SearchField> {
+
+  InputDecoration _buildDecoration(BuildContext context, TextEditingController localController){
+    return InputDecoration(
+      labelText: widget.label,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      filled: true,
+      fillColor: Theme.of(context).scaffoldBackgroundColor,
+      prefixIcon: const Icon(Icons.search),
+      suffixIcon: localController.text.isNotEmpty ? IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: (){
+            localController.clear();
+
+            if(localController != widget.controller){
+              widget.controller.clear();
+            }
+            if(widget.onChanged!=null) widget.onChanged!("");
+            if(widget.onClear!=null) widget.onClear!();
+            setState(() {});
+          },
+      )
+      : null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
