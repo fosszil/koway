@@ -51,39 +51,87 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: widget.controller,
-      onSubmitted: (_) {
-        if (widget.onSubmitted != null) {
-          widget.onSubmitted!();
-        }
-      },
-      textInputAction: TextInputAction.search,
-      
-      onChanged: (value) {
-        setState(() {});
-        if (widget.onChanged != null){
-          widget.onChanged!(value);
-        }
-      },
-      decoration: InputDecoration(
-        labelText: widget.label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        filled: true,
-        fillColor: Theme.of(context).scaffoldBackgroundColor,
-        prefixIcon: const Icon(Icons.search),
-        suffixIcon: widget.controller.text.isNotEmpty ? IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: (){
-            widget.controller.clear();
-            if (widget.onChanged != null) widget.onChanged!("");
-            setState(() {});
-          },
-        )
-        : null,
-      ),  
-    );
+    // 3. SCENARIO A: Bus Number Search (No Suggestions)
+    // If the list is empty, just return the simple text field you already built.
+    if (widget.suggestions.isEmpty) {
+      return TextField(
+        controller: widget.controller,
+        onSubmitted: (_) => widget.onSubmitted?.call(),
+        textInputAction: TextInputAction.search,
+        onChanged: (value) {
+          setState(() {}); // specific to update clear icon
+          widget.onChanged?.call(value);
+        },
+        decoration: _buildDecoration(context, widget.controller),
+      );
+    }
+
+    // 4. SCENARIO B: Stop Search (With Suggestions)
+    // If list has items, wrap it in Autocomplete.
+    return LayoutBuilder(builder: (context, constraints) {
+      return Autocomplete<String>(
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          if (textEditingValue.text.isEmpty) {
+            return const Iterable<String>.empty();
+          }
+          return widget.suggestions.where((String option) {
+            return option.toLowerCase().contains(textEditingValue.text.toLowerCase());
+          });
+        },
+        onSelected: (String selection) {
+          widget.controller.text = selection;
+          setState(() {});
+          widget.onChanged?.call(selection);
+        },
+        // Reuse the exact same TextField logic
+        fieldViewBuilder: (context, fieldTextController, focusNode, onFieldSubmitted) {
+          // Sync Logic: Ensure internal controller matches parent controller
+          if (widget.controller.text != fieldTextController.text) {
+             fieldTextController.text = widget.controller.text;
+             // Fix cursor position jumping to start
+             fieldTextController.selection = TextSelection.fromPosition(
+                TextPosition(offset: fieldTextController.text.length));
+          }
+
+          return TextField(
+            controller: fieldTextController,
+            focusNode: focusNode,
+            onSubmitted: (_) => widget.onSubmitted?.call(),
+            textInputAction: TextInputAction.search,
+            onChanged: (value) {
+              widget.controller.text = value; // Sync back to parent
+              setState(() {});
+              widget.onChanged?.call(value);
+            },
+            decoration: _buildDecoration(context, fieldTextController),
+          );
+        },
+        optionsViewBuilder: (context, onSelected, options) {
+          return Align(
+            alignment: Alignment.topLeft,
+            child: Material(
+              elevation: 4.0,
+              child: SizedBox(
+                width: constraints.maxWidth,
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: options.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final String option = options.elementAt(index);
+                    return ListTile(
+                      title: Text(option),
+                      onTap: () {
+                        onSelected(option);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    });
   }
 }

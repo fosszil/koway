@@ -95,6 +95,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
             child: SearchField(
               label: "Origin (e.g. Gandhipuram)",
               controller: _originController,
+              suggestions: RouteService.instance.allStops,
               onSubmitted: _handleSearch,
             ),
           ),
@@ -103,6 +104,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
             child: SearchField(
               label: "Destination (e.g. 100 feet/GP)",
               controller: _destController,
+              suggestions: RouteService.instance.allStops,
               onSubmitted: _handleSearch,
             ),
           ),
