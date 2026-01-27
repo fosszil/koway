@@ -51,8 +51,6 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   Widget build(BuildContext context) {
-    // 3. SCENARIO A: Bus Number Search (No Suggestions)
-    // If the list is empty, just return the simple text field you already built.
     if (widget.suggestions.isEmpty) {
       return TextField(
         controller: widget.controller,
@@ -66,8 +64,6 @@ class _SearchFieldState extends State<SearchField> {
       );
     }
 
-    // 4. SCENARIO B: Stop Search (With Suggestions)
-    // If list has items, wrap it in Autocomplete.
     return LayoutBuilder(builder: (context, constraints) {
       return Autocomplete<String>(
         optionsBuilder: (TextEditingValue textEditingValue) {
@@ -83,12 +79,9 @@ class _SearchFieldState extends State<SearchField> {
           setState(() {});
           widget.onChanged?.call(selection);
         },
-        // Reuse the exact same TextField logic
         fieldViewBuilder: (context, fieldTextController, focusNode, onFieldSubmitted) {
-          // Sync Logic: Ensure internal controller matches parent controller
           if (widget.controller.text != fieldTextController.text) {
              fieldTextController.text = widget.controller.text;
-             // Fix cursor position jumping to start
              fieldTextController.selection = TextSelection.fromPosition(
                 TextPosition(offset: fieldTextController.text.length));
           }
@@ -99,7 +92,7 @@ class _SearchFieldState extends State<SearchField> {
             onSubmitted: (_) => widget.onSubmitted?.call(),
             textInputAction: TextInputAction.search,
             onChanged: (value) {
-              widget.controller.text = value; // Sync back to parent
+              widget.controller.text = value;
               setState(() {});
               widget.onChanged?.call(value);
             },
