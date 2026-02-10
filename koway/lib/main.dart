@@ -1,47 +1,32 @@
 import 'package:flutter/material.dart';
-import 'screens/route_list.dart';
-import 'screens/route_search.dart';
-
+import 'screens/main_screen.dart'; // Import the new screen
 import 'services/route_service.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final routes = await RouteService.instance.fetchAllRoutes();
-  for (var r in routes) {
-    print("${r.routeNumber}: ${r.origin} → ${r.destination} (${r.stops.length} stops)");
-  }
+  
+  await RouteService.instance.fetchAllRoutes();
+  await RouteService.instance.loadSearchIndex();
+
   runApp(const KowayTravel());
 }
 
-
-class KowayTravel extends StatelessWidget{
+class KowayTravel extends StatelessWidget {
   const KowayTravel({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Koway",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
-      home: const RouteSearchScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Koway")),
-      body: const Center(
-        child: Text(
-          "Find your way around Kovai 👋",
-          style: TextStyle(fontSize: 20),
+        useMaterial3: true, 
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal, 
+          brightness: Brightness.light,
         ),
       ),
+      home: const MainScreen(),
     );
   }
 }
