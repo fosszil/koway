@@ -87,7 +87,6 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Find Bus Routes")),
       body: Column(
         children: [
           Padding(
