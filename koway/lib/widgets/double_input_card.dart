@@ -17,7 +17,7 @@ class DoubleInputCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.zero,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -36,10 +36,7 @@ class DoubleInputCard extends StatelessWidget {
           children: [
             // Left: Visual Connector
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 18,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -58,11 +55,7 @@ class DoubleInputCard extends StatelessWidget {
                       color: Colors.grey.shade200,
                     ),
                   ),
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.red.shade400,
-                    size: 16,
-                  ),
+                  Icon(Icons.location_on, color: Colors.red.shade400, size: 16),
                 ],
               ),
             ),
@@ -95,40 +88,41 @@ class DoubleInputCard extends StatelessWidget {
         controller.text = selection;
         onSearch();
       },
-      fieldViewBuilder: (context, fieldController, focusNode, onFieldSubmitted) {
-        if (controller.text != fieldController.text) {
-          fieldController.text = controller.text;
-          fieldController.selection = TextSelection.fromPosition(
-            TextPosition(offset: fieldController.text.length),
-          );
-        }
+      fieldViewBuilder:
+          (context, fieldController, focusNode, onFieldSubmitted) {
+            if (controller.text != fieldController.text) {
+              fieldController.text = controller.text;
+              fieldController.selection = TextSelection.fromPosition(
+                TextPosition(offset: fieldController.text.length),
+              );
+            }
 
-        return TextField(
-          controller: fieldController,
-          focusNode: focusNode,
-          onSubmitted: (_) => onSearch(),
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 15,
-            color: Colors.black87,
-          ),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: TextStyle(
-              color: Colors.grey.shade400,
-              fontWeight: FontWeight.w400,
-              fontSize: 15,
-            ),
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 0,
-              vertical: 16,
-            ),
-            isDense: true,
-          ),
-          onChanged: (val) => controller.text = val,
-        );
-      },
+            return TextField(
+              controller: fieldController,
+              focusNode: focusNode,
+              onSubmitted: (_) => onSearch(),
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
+                color: Colors.black87,
+              ),
+              decoration: InputDecoration(
+                hintText: hint,
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                ),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 0,
+                  vertical: 16,
+                ),
+                isDense: true,
+              ),
+              onChanged: (val) => controller.text = val,
+            );
+          },
       optionsViewBuilder: (context, onSelected, options) {
         return Align(
           alignment: Alignment.topLeft,
