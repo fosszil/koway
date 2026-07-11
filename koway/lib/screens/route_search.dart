@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../models/bus_routes.dart';
 import '../services/route_service.dart';
 import '../screens/route_detail_screen.dart';
+import '../theme/app_theme.dart';
 // import '../widgets/search_field.dart';
 import '../widgets/double_input_card.dart';
 
@@ -63,7 +65,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
       origin,
       dest,
     );
-    print("Found IDs: $matchingIds");
+    debugPrint("Found IDs: $matchingIds");
 
     if (matchingIds.isEmpty) {
       setState(() {
@@ -87,68 +89,73 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: DoubleInputCard(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.forest,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              DoubleInputCard(
                 originController: _originController,
                 destController: _destController,
                 suggestions: RouteService.instance.allStops,
                 onSearch: _handleSearch,
               ),
-            ),
-            Expanded(
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : _filteredRoutes.isEmpty
-                  ? Center(
-                      child: Text(
-                        _hasSearched
-                            ? "No Routes Found"
-                            : "Enter stops to search",
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: _filteredRoutes.length,
-                      itemBuilder: (context, index) {
-                        final route = _filteredRoutes[index];
-                        return Card(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Text(
-                                route.routeNumber,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _filteredRoutes.isEmpty
+                    ? Center(
+                        child: Text(
+                          _hasSearched
+                              ? "No Routes Found"
+                              : "Enter stops to search",
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: _filteredRoutes.length,
+                        itemBuilder: (context, index) {
+                          final route = _filteredRoutes[index];
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                child: Text(
+                                  route.routeNumber,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
+                              title: Text("Route ${route.routeNumber}"),
+                              subtitle: Text(
+                                "${route.origin} → ${route.destination}",
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        RouteDetailScreen(route: route),
+                                  ),
+                                );
+                              },
                             ),
-                            title: Text("Route ${route.routeNumber}"),
-                            subtitle: Text(
-                              "${route.origin} → ${route.destination}",
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      RouteDetailScreen(route: route),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-            ),
-          ],
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
