@@ -130,7 +130,7 @@ class _HeaderTitle extends StatelessWidget {
           ],
         ),
         Text(
-          'Coimbatore',
+          'Find Buses in Coimbatore',
           style: TextStyle(
             color: Color(0xB3FFFFFF),
             fontSize: 12,
