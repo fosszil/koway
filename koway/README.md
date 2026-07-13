@@ -1,35 +1,76 @@
-# Koway
+# Koway Flutter App
 
-Koway is a simple, open-source Flutter app for finding bus routes in
-Coimbatore. It uses local route data and does not claim to provide live
-tracking or arrival times.
+This folder contains the Flutter client for [Koway](../README.md), an
+open-source bus route app for Coimbatore. Koway currently focuses on fast,
+offline route discovery using community-maintained local data.
 
-## What You Can Do
+## Roadmap
 
-- Find direct buses between two stops.
-- Search routes by number, origin, or destination.
-- Browse the stops of a route in order.
+- Map-based route exploration.
+- Bus schedules and estimated arrival times.
+- Live vehicle tracking when reliable transit data is available.
+- Optimise the app for web.
 
-## Screenshots
+## Development Setup
 
-| Trip Planner | Routes | Route Details |
-| :---: | :---: | :---: |
-| <img src="flutter_01.png" alt="Trip planner with direct bus results" width="260"> | <img src="flutter_02.png" alt="Searchable list of Coimbatore bus routes" width="260"> | <img src="flutter_03.png" alt="Route details with an ordered stop timeline" width="260"> |
-
-## Getting Started
-
-Install the [Flutter SDK](https://docs.flutter.dev/get-started/install), open
-this folder in a terminal, and run:
+Install a recent [Flutter SDK](https://docs.flutter.dev/get-started/install)
+with Dart 3.9.2 or newer. From this folder, run:
 
 ```sh
 flutter pub get
 flutter run
 ```
 
-Use `flutter analyze` to check the code before submitting a change.
+Flutter will ask you to select a device when more than one target is available.
+
+## Code Quality
+
+Format and analyze the project before submitting a change:
+
+```sh
+dart format lib test
+flutter analyze
+```
+
+## Project Structure
+
+| Path | Purpose |
+| --- | --- |
+| `lib/screens/` | Screen layout, state, and navigation |
+| `lib/widgets/` | Small reusable UI components |
+| `lib/models/` | Bus route and stop data models |
+| `lib/services/` | Local route loading and search logic |
+| `lib/theme/` | Shared colors, spacing, radii, and Flutter theme |
+| `assets/` | Generated route data consumed by the app |
+
+`MainScreen` owns the selected bottom-navigation tab. Individual screens own
+their controllers and filtered route lists. Reusable widgets receive data and
+callbacks from those screens.
 
 ## Route Data
 
-The app reads its route information from `assets/routes.json` and
-`assets/hashed_routes.json`. See the [main project README](../README.md) for
-contribution and licensing information.
+The source route files live in `../data/routes/`. The files in `assets/` are
+generated output and should not be edited by hand.
+
+To rebuild the Flutter assets, run the following from this folder:
+
+```sh
+cd ../scripts
+python -m pip install jsonschema
+python build_routes.py
+python hash_routes.py
+```
+
+`build_routes.py` validates and combines the route files into
+`assets/routes.json`. `hash_routes.py` creates the stop-to-route search index
+in `assets/hashed_routes.json`.
+
+## UI Contributions
+- Keep widgets and state ownership straightforward for new Flutter developers.
+- Preserve route search, navigation, loading, and empty-state behavior.
+- Do not display live transit features unless the project has real data for
+  them.
+- Keep pull requests focused on one screen or reusable widget at a time.
+
+Contribution and licensing information is available in the
+[main project README](../README.md).
