@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../models/bus_routes.dart';
 import '../services/route_service.dart';
 import '../screens/route_detail_screen.dart';
+import '../theme/app_theme.dart';
+import '../widgets/koway_app_header.dart';
 import '../widgets/search_field.dart';
 
 class RoutesListScreen extends StatefulWidget {
@@ -62,75 +65,84 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SearchField(
-              label: "Search Routes",
-              controller: searchController,
-              onChanged: (value) => _runFilter(value),
-              onClear: () => _runFilter(""),
-            ),
-          ),
-          Expanded(
-            child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : _filteredRoutes.isEmpty
-                ? const Center(child: Text("No routes found"))
-                : ListView.builder(
-                    padding: EdgeInsets.only(
-                      bottom:
-                          MediaQuery.paddingOf(context).bottom +
-                          _floatingNavClearance,
-                    ),
-                    itemCount: _filteredRoutes.length,
-                    itemBuilder: (context, index) {
-                      final route = _filteredRoutes[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.forest,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              KowayAppHeader(
+                child: SearchField(
+                  label: 'Search routes',
+                  controller: searchController,
+                  onChanged: _runFilter,
+                  onClear: () => _runFilter(''),
+                ),
+              ),
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _filteredRoutes.isEmpty
+                    ? const Center(child: Text('No routes found'))
+                    : ListView.builder(
+                        padding: EdgeInsets.only(
+                          bottom:
+                              MediaQuery.paddingOf(context).bottom +
+                              _floatingNavClearance,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 2,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.blue.shade50,
-                            child: Text(
-                              route.routeNumber,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
+                        itemCount: _filteredRoutes.length,
+                        itemBuilder: (context, index) {
+                          final route = _filteredRoutes[index];
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
                             ),
-                          ),
-                          title: Text("Route ${route.routeNumber}"),
-                          subtitle: Text(
-                            "${route.origin} → ${route.destination}",
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    RouteDetailScreen(route: route),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.blue.shade50,
+                                child: Text(
+                                  route.routeNumber,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                              title: Text('Route ${route.routeNumber}'),
+                              subtitle: Text(
+                                '${route.origin} → ${route.destination}',
+                              ),
+                              trailing: const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        RouteDetailScreen(route: route),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
