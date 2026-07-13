@@ -96,7 +96,7 @@ class RouteCard extends StatelessWidget {
                         ),
                         const SizedBox(height: AppSpacing.xs),
                         Text(
-                          '${route.stops.length} stops · View route',
+                          '${route.stops.length} stops',
                           style: TextStyle(
                             color: AppColors.muted,
                             fontSize: 12,
