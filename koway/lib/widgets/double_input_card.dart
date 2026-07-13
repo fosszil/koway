@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
+import 'koway_app_header.dart';
 
 class DoubleInputCard extends StatelessWidget {
   final TextEditingController originController;
@@ -18,27 +19,10 @@ class DoubleInputCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery.paddingOf(context).top;
-
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        topPadding + AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.xl,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.forest,
-        borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(AppRadius.header),
-        ),
-      ),
+    return KowayAppHeader(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _HeaderTitle(),
-          const SizedBox(height: AppSpacing.md),
           Stack(
             alignment: Alignment.centerRight,
             children: [
@@ -103,41 +87,6 @@ class DoubleInputCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _HeaderTitle extends StatelessWidget {
-  const _HeaderTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.directions_bus, color: AppColors.lime, size: 22),
-            SizedBox(width: AppSpacing.sm),
-            Text(
-              'Koway',
-              style: TextStyle(
-                color: AppColors.surface,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          'Find Buses in Coimbatore',
-          style: TextStyle(
-            color: Color(0xB3FFFFFF),
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
     );
   }
 }
