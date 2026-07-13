@@ -21,6 +21,11 @@ class RouteDetailScreen extends StatelessWidget {
         title: const Text('Route details'),
         backgroundColor: AppColors.forest,
         foregroundColor: AppColors.surface,
+        titleTextStyle: const TextStyle(
+          color: AppColors.surface,
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+        ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: AppColors.forest,
           statusBarIconBrightness: Brightness.light,
