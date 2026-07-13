@@ -1,38 +1,170 @@
 import 'package:flutter/material.dart';
-import '../models/bus_routes.dart';
+import 'package:flutter/services.dart';
 
-class RouteDetailScreen extends StatelessWidget{
+import '../models/bus_routes.dart';
+import '../theme/app_theme.dart';
+import '../widgets/route_card.dart';
+import '../widgets/stop_timeline.dart';
+
+class RouteDetailScreen extends StatelessWidget {
   final BusRoute route;
+
   const RouteDetailScreen({super.key, required this.route});
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = routeColor(route.routeNumber);
+
     return Scaffold(
-      appBar: AppBar(title: Text("Route: ${route.routeNumber}")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: const Text('Route details'),
+        backgroundColor: AppColors.forest,
+        foregroundColor: AppColors.surface,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: AppColors.forest,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+      ),
+      body: SafeArea(
+        top: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("${route.origin} → ${route.destination}",
-              style: Theme.of(context).textTheme.titleLarge,),
-            const Divider(height: 24),
-            Text("Stops:", style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
-            Expanded(
-              child: ListView.builder(
-                itemCount: route.stops.length,
-                itemBuilder: (context, index) {
-                  final stop = route.stops[index];
-                  return ListTile(
-                    leading: CircleAvatar(child: Text("${stop.stopNumber}")),
-                    title: Text(stop.stopName),
-                  );
-                },
+            _RouteHeader(route: route, accentColor: accentColor),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.lg,
+                AppSpacing.lg,
+                AppSpacing.md,
               ),
-            )
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(AppSpacing.md),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(AppRadius.control),
+                  border: Border.all(color: AppColors.divider),
+                ),
+                child: const Text(
+                  'Route stops only. Timetable data is not available.',
+                  style: TextStyle(
+                    color: AppColors.muted,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+              child: Text(
+                'Stops in order',
+                style: TextStyle(
+                  color: AppColors.ink,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  0,
+                  AppSpacing.lg,
+                  AppSpacing.lg,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(AppRadius.card),
+                  border: Border.all(color: AppColors.divider),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: StopTimeline(stops: route.stops, color: accentColor),
+              ),
+            ),
           ],
-        ),)
+        ),
+      ),
+    );
+  }
+}
+
+class _RouteHeader extends StatelessWidget {
+  final BusRoute route;
+  final Color accentColor;
+
+  const _RouteHeader({required this.route, required this.accentColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.xl,
+      ),
+      decoration: const BoxDecoration(
+        color: AppColors.forest,
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(AppRadius.header),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            constraints: const BoxConstraints(minWidth: 62),
+            height: 52,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            decoration: BoxDecoration(
+              color: accentColor,
+              borderRadius: BorderRadius.circular(AppRadius.control),
+            ),
+            child: Text(
+              route.routeNumber,
+              style: TextStyle(
+                color: routeTextColor(route.routeNumber),
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${route.origin} → ${route.destination}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: AppColors.surface,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  '${route.stops.length} named stops',
+                  style: const TextStyle(
+                    color: Color(0xB3FFFFFF),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
