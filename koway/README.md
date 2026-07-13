@@ -1,16 +1,35 @@
-# koway
+# Koway
 
-A new Flutter project.
+Koway is a simple, open-source Flutter app for finding bus routes in
+Coimbatore. It uses local route data and does not claim to provide live
+tracking or arrival times.
+
+## What You Can Do
+
+- Find direct buses between two stops.
+- Search routes by number, origin, or destination.
+- Browse the stops of a route in order.
+
+## Screenshots
+
+| Trip Planner | Routes | Route Details |
+| :---: | :---: | :---: |
+| <img src="flutter_01.png" alt="Trip planner with direct bus results" width="260"> | <img src="flutter_02.png" alt="Searchable list of Coimbatore bus routes" width="260"> | <img src="flutter_03.png" alt="Route details with an ordered stop timeline" width="260"> |
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Install the [Flutter SDK](https://docs.flutter.dev/get-started/install), open
+this folder in a terminal, and run:
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter pub get
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Use `flutter analyze` to check the code before submitting a change.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Route Data
+
+The app reads its route information from `assets/routes.json` and
+`assets/hashed_routes.json`. See the [main project README](../README.md) for
+contribution and licensing information.
