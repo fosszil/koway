@@ -6,6 +6,7 @@ import '../screens/route_detail_screen.dart';
 import '../theme/app_theme.dart';
 // import '../widgets/search_field.dart';
 import '../widgets/double_input_card.dart';
+import '../widgets/route_card.dart';
 
 class RouteSearchScreen extends StatefulWidget {
   const RouteSearchScreen({super.key});
@@ -128,25 +129,13 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                         itemCount: _filteredRoutes.length,
                         itemBuilder: (context, index) {
                           final route = _filteredRoutes[index];
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.lg,
+                              vertical: AppSpacing.sm,
                             ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                child: Text(
-                                  route.routeNumber,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              title: Text("Route ${route.routeNumber}"),
-                              subtitle: Text(
-                                "${route.origin} → ${route.destination}",
-                              ),
+                            child: RouteCard(
+                              route: route,
                               onTap: () {
                                 Navigator.push(
                                   context,

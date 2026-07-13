@@ -5,6 +5,7 @@ import '../services/route_service.dart';
 import '../screens/route_detail_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/koway_app_header.dart';
+import '../widgets/route_card.dart';
 import '../widgets/search_field.dart';
 
 class RoutesListScreen extends StatefulWidget {
@@ -98,34 +99,13 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
                         itemCount: _filteredRoutes.length,
                         itemBuilder: (context, index) {
                           final route = _filteredRoutes[index];
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.lg,
+                              vertical: AppSpacing.sm,
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            elevation: 2,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.blue.shade50,
-                                child: Text(
-                                  route.routeNumber,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              title: Text('Route ${route.routeNumber}'),
-                              subtitle: Text(
-                                '${route.origin} → ${route.destination}',
-                              ),
-                              trailing: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 16,
-                              ),
+                            child: RouteCard(
+                              route: route,
                               onTap: () {
                                 Navigator.push(
                                   context,
