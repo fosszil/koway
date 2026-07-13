@@ -12,6 +12,8 @@ class RoutesListScreen extends StatefulWidget {
 }
 
 class _RoutesListScreenState extends State<RoutesListScreen> {
+  static const _floatingNavClearance = 88.0;
+
   late Future<List<BusRoute>> futureRoutes;
 
   TextEditingController searchController = TextEditingController();
@@ -29,7 +31,7 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
   void _loadData() async {
     final routes = await RouteService.instance.fetchAllRoutes();
 
-    if(mounted) {
+    if (mounted) {
       setState(() {
         _allRoutes = routes;
         _filteredRoutes = routes;
@@ -38,16 +40,18 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
     }
   }
 
-  void _runFilter(String inputKeyword){
+  void _runFilter(String inputKeyword) {
     List<BusRoute> results = [];
 
-    if(inputKeyword.isEmpty){
+    if (inputKeyword.isEmpty) {
       results = _allRoutes;
     } else {
       results = _allRoutes.where((route) {
         final query = inputKeyword.toLowerCase();
 
-        return route.routeNumber.toLowerCase().contains(query) || route.origin.toLowerCase().contains(query) || route.destination.toLowerCase().contains(query);
+        return route.routeNumber.toLowerCase().contains(query) ||
+            route.origin.toLowerCase().contains(query) ||
+            route.destination.toLowerCase().contains(query);
       }).toList();
     }
 
@@ -63,46 +67,68 @@ class _RoutesListScreenState extends State<RoutesListScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: SearchField(label: "Search Routes",controller: searchController,onChanged: (value) => _runFilter(value),onClear: () => _runFilter(""),),
+            child: SearchField(
+              label: "Search Routes",
+              controller: searchController,
+              onChanged: (value) => _runFilter(value),
+              onClear: () => _runFilter(""),
+            ),
           ),
           Expanded(
-            child: _isLoading 
-              ? const Center(child: CircularProgressIndicator()) 
-              : _filteredRoutes.isEmpty
-                  ? const Center(child: Text("No routes found"))
-                  : ListView.builder(
-                      itemCount: _filteredRoutes.length,
-                      itemBuilder: (context, index) {
-                        final route = _filteredRoutes[index];
-                        return Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 2,
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.blue.shade50,
-                              child: Text(
-                                route.routeNumber, 
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _filteredRoutes.isEmpty
+                ? const Center(child: Text("No routes found"))
+                : ListView.builder(
+                    padding: EdgeInsets.only(
+                      bottom:
+                          MediaQuery.paddingOf(context).bottom +
+                          _floatingNavClearance,
+                    ),
+                    itemCount: _filteredRoutes.length,
+                    itemBuilder: (context, index) {
+                      final route = _filteredRoutes[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.blue.shade50,
+                            child: Text(
+                              route.routeNumber,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
                               ),
                             ),
-                            title: Text("Route ${route.routeNumber}"),
-                            subtitle: Text("${route.origin} → ${route.destination}"),
-                            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RouteDetailScreen(route: route),
-                                ),
-                              );
-                            },
                           ),
-                        );
-                      },
-                    ),
+                          title: Text("Route ${route.routeNumber}"),
+                          subtitle: Text(
+                            "${route.origin} → ${route.destination}",
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    RouteDetailScreen(route: route),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),

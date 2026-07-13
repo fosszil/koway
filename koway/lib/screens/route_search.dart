@@ -15,6 +15,8 @@ class RouteSearchScreen extends StatefulWidget {
 }
 
 class _RouteSearchScreenState extends State<RouteSearchScreen> {
+  static const _floatingNavClearance = 88.0;
+
   final TextEditingController _originController = TextEditingController();
   final TextEditingController _destController = TextEditingController();
 
@@ -118,6 +120,11 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                         ),
                       )
                     : ListView.builder(
+                        padding: EdgeInsets.only(
+                          bottom:
+                              MediaQuery.paddingOf(context).bottom +
+                              _floatingNavClearance,
+                        ),
                         itemCount: _filteredRoutes.length,
                         itemBuilder: (context, index) {
                           final route = _filteredRoutes[index];

@@ -11,8 +11,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  static const _bottomNavClearance = 88.0;
-
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
@@ -28,11 +26,7 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          Padding(
-            // Keeps each screen's content above the floating navigation.
-            padding: EdgeInsets.only(bottom: bottomInset + _bottomNavClearance),
-            child: IndexedStack(index: _selectedIndex, children: _screens),
-          ),
+          IndexedStack(index: _selectedIndex, children: _screens),
           Positioned(
             left: AppSpacing.lg,
             right: AppSpacing.lg,
