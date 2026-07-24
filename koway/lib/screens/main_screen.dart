@@ -13,10 +13,29 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
+  final PageController _pageController = PageController();
+
   final List<Widget> _screens = [
     const RouteSearchScreen(),
     const RoutesListScreen(),
   ];
+
+  void _selectPage(int index){
+    if (index == _selectedIndex) return;
+
+    setState(() {
+      //which navbar item is selected
+      _selectedIndex = index;
+    });
+
+    _pageController.animateToPage(index, duration: const Duration(milliseconds: 240), curve: Curves.easeOutCubic);
+  }
+
+  @override
+  void dispose(){
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +45,14 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          IndexedStack(index: _selectedIndex, children: _screens),
+          PageView(controller: _pageController, children: _screens),
           Positioned(
             left: AppSpacing.lg,
             right: AppSpacing.lg,
             bottom: bottomInset + AppSpacing.md,
             child: _FloatingBottomNav(
               selectedIndex: _selectedIndex,
-              onSelected: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+              onSelected: _selectPage,
             ),
           ),
         ],
