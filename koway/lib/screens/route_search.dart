@@ -40,7 +40,8 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     if (mounted) {
       setState(() {
         _allRoutes = routes;
-        _filteredRoutes = routes;
+        //removed this to show results only on buttonpress
+        // _filteredRoutes = routes;
         _isLoading = false;
       });
     }
