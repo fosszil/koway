@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     const RoutesListScreen(),
   ];
 
-  void _selectPage(int index){
+  void _selectPage(int index) {
     if (index == _selectedIndex) return;
 
     setState(() {
@@ -28,11 +28,15 @@ class _MainScreenState extends State<MainScreen> {
       _selectedIndex = index;
     });
 
-    _pageController.animateToPage(index, duration: const Duration(milliseconds: 240), curve: Curves.easeOutCubic);
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOutCubic,
+    );
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _pageController.dispose();
     super.dispose();
   }
@@ -45,7 +49,17 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          PageView(controller: _pageController, children: _screens),
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            children: [
+              for (final screen in _screens) _KeepAlivePage(child: screen),
+            ],
+          ),
           Positioned(
             left: AppSpacing.lg,
             right: AppSpacing.lg,
@@ -58,6 +72,27 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+}
+
+class _KeepAlivePage extends StatefulWidget {
+  final Widget child;
+
+  const _KeepAlivePage({required this.child});
+
+  @override
+  State<_KeepAlivePage> createState() => _KeepAlivePageState();
+}
+
+class _KeepAlivePageState extends State<_KeepAlivePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return widget.child;
   }
 }
 
