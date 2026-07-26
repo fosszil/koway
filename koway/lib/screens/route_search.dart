@@ -91,6 +91,14 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     });
   }
 
+  void _swapStops() {
+    setState(() {
+      final origin = _originController.text;
+      _originController.text = _destController.text;
+      _destController.text = origin;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -108,6 +116,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                 originController: _originController,
                 destController: _destController,
                 suggestions: RouteService.instance.allStops,
+                onSwap: _swapStops,
                 onSearch: _handleSearch,
               ),
               Expanded(

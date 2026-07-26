@@ -7,6 +7,7 @@ class DoubleInputCard extends StatelessWidget {
   final TextEditingController originController;
   final TextEditingController destController;
   final List<String> suggestions;
+  final VoidCallback onSwap;
   final VoidCallback onSearch;
 
   const DoubleInputCard({
@@ -14,6 +15,7 @@ class DoubleInputCard extends StatelessWidget {
     required this.originController,
     required this.destController,
     required this.suggestions,
+    required this.onSwap,
     required this.onSearch,
   });
 
@@ -43,7 +45,6 @@ class DoubleInputCard extends StatelessWidget {
                       hint: 'Starting stop',
                       controller: originController,
                       suggestions: suggestions,
-                      onSearch: onSearch,
                       marker: const _StopMarker(shape: BoxShape.circle),
                     ),
                     const Divider(height: 1, color: AppColors.divider),
@@ -51,19 +52,12 @@ class DoubleInputCard extends StatelessWidget {
                       hint: 'Destination stop',
                       controller: destController,
                       suggestions: suggestions,
-                      onSearch: onSearch,
                       marker: const _StopMarker(shape: BoxShape.rectangle),
                     ),
                   ],
                 ),
               ),
-              _SwapButton(
-                onPressed: () {
-                  final origin = originController.text;
-                  originController.text = destController.text;
-                  destController.text = origin;
-                },
-              ),
+              _SwapButton(onPressed: onSwap),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
@@ -95,14 +89,12 @@ class _InputRow extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final List<String> suggestions;
-  final VoidCallback onSearch;
   final Widget marker;
 
   const _InputRow({
     required this.hint,
     required this.controller,
     required this.suggestions,
-    required this.onSearch,
     required this.marker,
   });
 
@@ -122,7 +114,6 @@ class _InputRow extends StatelessWidget {
             },
             onSelected: (String selection) {
               controller.text = selection;
-              onSearch();
             },
             fieldViewBuilder:
                 (context, fieldController, focusNode, onFieldSubmitted) {
@@ -136,7 +127,6 @@ class _InputRow extends StatelessWidget {
                   return TextField(
                     controller: fieldController,
                     focusNode: focusNode,
-                    onSubmitted: (_) => onSearch(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
