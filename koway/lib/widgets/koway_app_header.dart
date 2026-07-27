@@ -42,15 +42,15 @@ class _KowayBrand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Icon(Icons.directions_bus, color: AppColors.lime, size: 22),
-        SizedBox(width: AppSpacing.sm),
+        Image.asset('assets/images/koway_logo.png', width: 36, height: 36),
+        SizedBox(width: AppSpacing.xs),
         Text(
           'Koway',
           style: TextStyle(
             color: AppColors.surface,
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: FontWeight.w800,
           ),
         ),
