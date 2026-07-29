@@ -54,7 +54,7 @@ class RouteService {
         print("Search index loaded. Total stops: ${_searchIndex.length}");
       }
     } catch (e) {
-      print("rror loading search index: $e");
+      print("Error loading search index: $e");
     }
   }
 
@@ -104,4 +104,26 @@ class RouteService {
 
     return commonRoutes;
   }
+
+  IndirectRoute findRoutesViaGandhipuram(
+    String origin,
+    String destination,
+  ) {
+    const transferStop = 'Gandhipuram';
+
+    final firstLeg = findRoutesBetween(origin, transferStop);
+    final secondLeg = findRoutesBetween(transferStop, destination);
+
+    return IndirectRoute(firstLeg: firstLeg, secondLeg: secondLeg);
+  }
+}
+
+class IndirectRoute {
+  final List<String> firstLeg;
+  final List<String> secondLeg;
+
+  const IndirectRoute({
+    required this.firstLeg,
+    required this.secondLeg,
+  });
 }
