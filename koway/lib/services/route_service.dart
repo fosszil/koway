@@ -7,7 +7,7 @@ class RouteService {
   static final RouteService instance = RouteService._init();
   RouteService._init();
 
-  List<BusRoute> _allRoutes = []; 
+  List<BusRoute> _allRoutes = [];
 
   Map<String, List<String>> _searchIndex = {};
 
@@ -105,25 +105,30 @@ class RouteService {
     return commonRoutes;
   }
 
-  IndirectRoute findRoutesViaGandhipuram(
-    String origin,
-    String destination,
-  ) {
+  IndirectRoute findRoutesViaGandhipuram(String origin, String destination) {
     const transferStop = 'Gandhipuram';
 
     final firstLeg = findRoutesBetween(origin, transferStop);
     final secondLeg = findRoutesBetween(transferStop, destination);
 
-    return IndirectRoute(firstLeg: firstLeg, secondLeg: secondLeg);
+    return IndirectRoute(
+      transferStop: transferStop,
+      firstLeg: firstLeg,
+      secondLeg: secondLeg,
+    );
   }
 }
 
 class IndirectRoute {
+  final String transferStop;
   final List<String> firstLeg;
   final List<String> secondLeg;
 
   const IndirectRoute({
+    required this.transferStop,
     required this.firstLeg,
     required this.secondLeg,
   });
+
+  bool get hasRoutes => firstLeg.isNotEmpty && secondLeg.isNotEmpty;
 }
