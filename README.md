@@ -5,12 +5,12 @@ with Flutter.
 
 ## Features
 
-- Find direct buses between two stops.
+- Find direct and indirect buses between two stops.
 - Search routes by number, origin, or destination.
 - View each route's ordered stop list.
 
-Koway currently uses local route data. It does not provide transfers, live
-tracking, schedules, maps, or estimated arrival times.
+Koway currently uses local route data. It does not provide live
+tracking, schedules, maps, or estimated arrival times yet.
 
 ## Getting Started
 
