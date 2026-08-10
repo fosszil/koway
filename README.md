@@ -1,4 +1,9 @@
-# Koway
+<h1>
+  <img src="koway/assets/images/koway_logo.png" alt="Koway logo" width="48" align="left">
+  Koway
+</h1>
+
+<br clear="left">
 
 Koway is an open-source, community-driven bus route app for Coimbatore, built
 with Flutter.
@@ -9,8 +14,9 @@ with Flutter.
 - Search routes by number, origin, or destination.
 - View each route's ordered stop list.
 
-Koway currently uses local route data. It does not provide live
-tracking, schedules, maps, or estimated arrival times yet.
+The current app is focused on fast route discovery from local route data.
+Upcoming work includes map-based exploration, schedules, estimated arrival
+times, and live vehicle tracking when reliable transit data is available.
 
 ## Getting Started
 
@@ -29,6 +35,9 @@ To create a production build, choose a target platform:
 flutter build apk
 flutter build web
 ```
+
+For Flutter-specific development notes, project structure, route-data scripts,
+and contribution guidance, see the [Flutter project README](koway/README.md).
 
 ## Screenshots
 
