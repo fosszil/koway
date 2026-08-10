@@ -29,14 +29,14 @@ class IndirectRouteCard extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.lg),
+        padding: const EdgeInsets.all(AppSpacing.md),
         child: Stack(
           children: [
             Positioned(
-              left: 19,
+              left: 16,
               top: AppSpacing.sm,
               bottom: AppSpacing.sm,
-              child: Container(width: 3, color: AppColors.divider),
+              child: Container(width: 2, color: AppColors.divider),
             ),
             Column(
               children: [
@@ -47,7 +47,7 @@ class IndirectRouteCard extends StatelessWidget {
                   marker: const _TimelineMarker.circle(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
                   child: _TransferSection(transferStop: transferStop),
                 ),
                 _LegSection(
@@ -83,8 +83,8 @@ class _LegSection extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 42, child: Center(child: marker)),
-        const SizedBox(width: AppSpacing.md),
+        SizedBox(width: 36, child: Center(child: marker)),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +93,7 @@ class _LegSection extends StatelessWidget {
                 label.toUpperCase(),
                 style: const TextStyle(
                   color: AppColors.muted,
-                  fontSize: 12,
+                  fontSize: 11,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -102,14 +102,14 @@ class _LegSection extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: AppColors.ink,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              const SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.sm),
               Wrap(
-                spacing: AppSpacing.md,
-                runSpacing: AppSpacing.sm,
+                spacing: AppSpacing.sm,
+                runSpacing: AppSpacing.xs,
                 children: [
                   for (final routeNumber in routeNumbers)
                     _RouteNumberBadge(routeNumber: routeNumber),
@@ -134,11 +134,11 @@ class _TransferSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 42,
+          width: 36,
           child: Center(
             child: Container(
-              width: 34,
-              height: 42,
+              width: 30,
+              height: 36,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColors.forest,
@@ -147,12 +147,12 @@ class _TransferSection extends StatelessWidget {
               child: const Icon(
                 Icons.swap_vert,
                 color: AppColors.lime,
-                size: 22,
+                size: 20,
               ),
             ),
           ),
         ),
-        const SizedBox(width: AppSpacing.md),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Container(
             padding: const EdgeInsets.all(AppSpacing.md),
@@ -165,7 +165,7 @@ class _TransferSection extends StatelessWidget {
               'Change at $transferStop\nThen choose a bus below',
               style: const TextStyle(
                 color: AppColors.forest,
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -186,8 +186,8 @@ class _RouteNumberBadge extends StatelessWidget {
     final color = routeColor(routeNumber);
 
     return Container(
-      width: 72,
-      height: 72,
+      width: 56,
+      height: 56,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color,
@@ -199,7 +199,7 @@ class _RouteNumberBadge extends StatelessWidget {
           routeNumber,
           style: TextStyle(
             color: routeTextColor(routeNumber),
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -223,9 +223,9 @@ class _TimelineMarker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 34,
-      height: 34,
-      padding: const EdgeInsets.all(6),
+      width: 28,
+      height: 28,
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(color: color, shape: shape),
       child: DecoratedBox(
         decoration: BoxDecoration(
