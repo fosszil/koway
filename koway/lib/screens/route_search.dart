@@ -119,17 +119,26 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     });
   }
 
-  Widget _buildNoDirectRouteState(){
-    if(!_hasSearched) {
-      return const Center(
-        child: Text("Enter Stops to Search")
-      );
+  Widget _buildNoDirectRouteState() {
+    if (!_hasSearched) {
+      return const Center(child: Text("Enter Stops to Search"));
     }
 
-    if(_indirectRoute != null && _indirectRoute!.hasRoutes){
+    if (_indirectRoute != null && _indirectRoute!.hasRoutes) {
       return SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: IndirectRouteCard(origin: _originController.text.trim(), destination: _destController.text.trim(), transferStop: _indirectRoute!.transferStop, firstLegRoutes: _indirectRoute!.firstLeg, secondLegRoutes: _indirectRoute!.secondLeg),
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.lg,
+          AppSpacing.lg,
+          MediaQuery.paddingOf(context).bottom + _floatingNavClearance,
+        ),
+        child: IndirectRouteCard(
+          origin: _originController.text.trim(),
+          destination: _destController.text.trim(),
+          transferStop: _indirectRoute!.transferStop,
+          firstLegRoutes: _indirectRoute!.firstLeg,
+          secondLegRoutes: _indirectRoute!.secondLeg,
+        ),
       );
     }
 
@@ -139,12 +148,14 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
         children: [
           const Text("No Routes Found"),
           const SizedBox(height: 10),
-          OutlinedButton(onPressed: _handleIndirectSearch, child: const Text("Search Routes via Gandhipuram"))
+          OutlinedButton(
+            onPressed: _handleIndirectSearch,
+            child: const Text("Search Routes via Gandhipuram"),
+          ),
         ],
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
