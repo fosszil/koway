@@ -1,8 +1,6 @@
 # Koway Flutter App
 
-This folder contains the Flutter client for [Koway](../README.md), an
-open-source bus route app for Coimbatore. Koway currently focuses on fast,
-offline route discovery using community-maintained local data.
+This folder contains the Flutter client for [Koway](../README.md)
 
 ## Roadmap
 
