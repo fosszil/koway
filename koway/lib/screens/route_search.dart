@@ -34,8 +34,6 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
   }
 
   void _loadData() async {
-    await RouteService.instance.fetchAllRoutes();
-
     final routes = await RouteService.instance.fetchAllRoutes();
 
     if (mounted) {
