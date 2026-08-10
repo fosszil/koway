@@ -4,7 +4,7 @@ import '../models/bus_routes.dart';
 import '../services/route_service.dart';
 import '../screens/route_detail_screen.dart';
 import '../theme/app_theme.dart';
-// import '../widgets/search_field.dart';
+import '../widgets/indirect_route_card.dart';
 import '../widgets/double_input_card.dart';
 import '../widgets/route_card.dart';
 
@@ -25,6 +25,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
   List<BusRoute> _filteredRoutes = [];
   bool _isLoading = true;
   bool _hasSearched = false;
+  IndirectRoute? _indirectRoute;
 
   @override
   void initState() {
@@ -88,6 +89,25 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     setState(() {
       _filteredRoutes = results;
       _isLoading = false;
+      _indirectRoute = null;
+    });
+  }
+
+  void _handleIndirectSearch() {
+    final origin = _originController.text.trim();
+    final destination = _destController.text.trim();
+
+    if (origin.isEmpty || destination.isEmpty) {
+      return;
+    }
+
+    final result = RouteService.instance.findRoutesViaGandhipuram(
+      origin,
+      destination,
+    );
+
+    setState(() {
+      _indirectRoute = result;
     });
   }
 
@@ -98,6 +118,33 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
       _destController.text = origin;
     });
   }
+
+  Widget _buildNoDirectRouteState(){
+    if(!_hasSearched) {
+      return const Center(
+        child: Text("Enter Stops to Search")
+      );
+    }
+
+    if(_indirectRoute != null && _indirectRoute!.hasRoutes){
+      return SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: IndirectRouteCard(origin: _originController.text.trim(), destination: _destController.text.trim(), transferStop: _indirectRoute!.transferStop, firstLegRoutes: _indirectRoute!.firstLeg, secondLegRoutes: _indirectRoute!.secondLeg),
+      );
+    }
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text("No Routes Found"),
+          const SizedBox(height: 10),
+          OutlinedButton(onPressed: _handleIndirectSearch, child: const Text("Search Routes via Gandhipuram"))
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,13 +170,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : _filteredRoutes.isEmpty
-                    ? Center(
-                        child: Text(
-                          _hasSearched
-                              ? "No Routes Found"
-                              : "Enter stops to search",
-                        ),
-                      )
+                    ? _buildNoDirectRouteState()
                     : ListView.builder(
                         padding: EdgeInsets.only(
                           bottom:
