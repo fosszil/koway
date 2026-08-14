@@ -124,29 +124,48 @@ class _InputRow extends StatelessWidget {
                     );
                   }
 
-                  return TextField(
-                    controller: fieldController,
-                    focusNode: focusNode,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: AppColors.ink,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: hint,
-                      hintStyle: const TextStyle(
-                        color: AppColors.muted,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      filled: false,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 13),
-                      isDense: true,
-                    ),
-                    onChanged: (val) => controller.text = val,
+                  return ValueListenableBuilder(
+                    valueListenable: fieldController,
+                    builder: (context, value, child) {
+                      return TextField(
+                        controller: fieldController,
+                        focusNode: focusNode,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: AppColors.ink,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: hint,
+                          hintStyle: const TextStyle(
+                            color: AppColors.muted,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          filled: false,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 13,
+                          ),
+                          isDense: true,
+
+                          suffixIcon: value.text.isEmpty
+                              ? null
+                              : IconButton(
+                                  onPressed: fieldController.clear,
+                                  icon: const Icon(
+                                    Icons.clear,
+                                    size: 18,
+                                    color: AppColors.muted,
+                                  ),
+                                  tooltip: "Clear $hint",
+                                ),
+                        ),
+                        onChanged: (value) => controller.text = value,
+                      );
+                    },
                   );
                 },
             optionsViewBuilder: (context, onSelected, options) {
