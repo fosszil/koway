@@ -62,6 +62,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     setState(() {
       _isLoading = true;
       _hasSearched = true;
+      _indirectRoute = null;
     });
 
     List<String> matchingIds = RouteService.instance.findRoutesBetween(
@@ -87,7 +88,6 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
     setState(() {
       _filteredRoutes = results;
       _isLoading = false;
-      _indirectRoute = null;
     });
   }
 
@@ -122,38 +122,49 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
       return const Center(child: Text("Enter Stops to Search"));
     }
 
-    if (_indirectRoute != null && _indirectRoute!.hasRoutes && _indirectRoute!.firstLeg.isNotEmpty) {
-      return SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.lg,
-          AppSpacing.lg,
-          AppSpacing.lg,
-          MediaQuery.paddingOf(context).bottom + _floatingNavClearance,
-        ),
-        child: IndirectRouteCard(
-          origin: _originController.text.trim(),
-          destination: _destController.text.trim(),
-          transferStop: _indirectRoute!.transferStop,
-          firstLegRoutes: _indirectRoute!.firstLeg,
-          secondLegRoutes: _indirectRoute!.secondLeg,
+    final indirectRoute = _indirectRoute;
+
+    if (indirectRoute == null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("No Routes Found"),
+            const SizedBox(height: 10),
+            OutlinedButton(
+              onPressed: _handleIndirectSearch,
+              child: const Text("Search Routes via Gandhipuram"),
+            ),
+          ],
         ),
       );
     }
-    if (_indirectRoute!.firstLeg.isEmpty) {
-      return Center(child: Text("No Indirect Route found between origin and Gandhipuram"),);
+
+    if (indirectRoute.firstLeg.isEmpty) {
+      return const Center(
+        child: Text("No route found from the origin to Gandhipuram"),
+      );
     }
 
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text("No Routes Found"),
-          const SizedBox(height: 10),
-          OutlinedButton(
-            onPressed: _handleIndirectSearch,
-            child: const Text("Search Routes via Gandhipuram"),
-          ),
-        ],
+    if (indirectRoute.secondLeg.isEmpty) {
+      return const Center(
+        child: Text("No route found from Gandhipuram to the destination"),
+      );
+    }
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        MediaQuery.paddingOf(context).bottom + _floatingNavClearance,
+      ),
+      child: IndirectRouteCard(
+        origin: _originController.text.trim(),
+        destination: _destController.text.trim(),
+        transferStop: indirectRoute.transferStop,
+        firstLegRoutes: indirectRoute.firstLeg,
+        secondLegRoutes: indirectRoute.secondLeg,
       ),
     );
   }
