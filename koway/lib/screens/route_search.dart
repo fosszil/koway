@@ -122,7 +122,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
       return const Center(child: Text("Enter Stops to Search"));
     }
 
-    if (_indirectRoute != null && _indirectRoute!.hasRoutes) {
+    if (_indirectRoute != null && _indirectRoute!.hasRoutes && _indirectRoute!.firstLeg.isNotEmpty) {
       return SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(
           AppSpacing.lg,
@@ -138,6 +138,9 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
           secondLegRoutes: _indirectRoute!.secondLeg,
         ),
       );
+    }
+    if (_indirectRoute!.firstLeg.isEmpty) {
+      return Center(child: Text("No Indirect Route found between origin and Gandhipuram"),);
     }
 
     return Center(
