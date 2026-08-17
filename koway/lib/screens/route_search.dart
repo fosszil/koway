@@ -172,23 +172,31 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
   Widget _popularRoutes() {
     final colors = Theme.of(context).colorScheme;
 
-    final List<Map<String,String>> _routesPopular = [{'origin': "Railway Station", 'destination': "Gandhipuram"},{'origin': "Ukkadam",'destination': "Railway Station"}];
+    final List<Map<String, String>> _routesPopular = [
+      {'origin': "Railway Station", 'destination': "Gandhipuram"},
+      {'origin': "Ukkadam", 'destination': "Railway Station"},
+    ];
 
     return ListView(
-      padding: EdgeInsets.all(16) + EdgeInsets.only(
-        bottom: MediaQuery.paddingOf(context).bottom + _floatingNavClearance
-      ),
+      padding:
+          EdgeInsets.all(16) +
+          EdgeInsets.only(
+            bottom:
+                MediaQuery.paddingOf(context).bottom + _floatingNavClearance,
+          ),
       children: [
         Text(
           "Popular Routes",
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold,),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 4,),
+        const SizedBox(height: 4),
         Text(
           "Most common routes around Coimbatore",
           style: Theme.of(context).textTheme.bodySmall,
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 10),
         for (final trip in _routesPopular)
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
@@ -201,7 +209,10 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                 side: BorderSide(color: colors.outlineVariant),
               ),
               child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 leading: Container(
                   width: 48,
                   height: 48,
@@ -209,28 +220,36 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                     color: colors.primaryContainer,
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(Icons.route_rounded)
+                  child: Icon(Icons.route_rounded),
                 ),
                 title: Text(
                   trip['origin']!,
                   maxLines: 1,
                   overflow: TextOverflow.fade,
-                  style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 subtitle: Text(
                   '→ ${trip['destination']!}',
                   maxLines: 1,
                   overflow: TextOverflow.fade,
-                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () {
-                  _originController.text = trip['origin']!;
-                  _destController.text = trip['destination']!;
+                  setState(() {
+                    _originController.text = trip['origin']!;
+                    _destController.text = trip['destination']!;
+                  });
                 },
               ),
             ),
-          )
+          ),
       ],
     );
   }
