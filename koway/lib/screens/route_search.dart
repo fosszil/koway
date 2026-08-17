@@ -245,6 +245,7 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
                   setState(() {
                     _originController.text = trip['origin']!;
                     _destController.text = trip['destination']!;
+                    _handleSearch();
                   });
                 },
               ),
