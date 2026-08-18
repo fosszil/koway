@@ -16,7 +16,7 @@ with Flutter.
 
 The current app is focused on fast route discovery from local route data.
 Upcoming work includes map-based exploration, schedules, estimated arrival
-times, and live vehicle tracking when reliable transit data is available.
+times when reliable transit data is available.
 
 ## Getting Started
 
