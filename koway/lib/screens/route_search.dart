@@ -58,6 +58,12 @@ class _RouteSearchScreenState extends State<RouteSearchScreen> {
       );
       return;
     }
+    else if (origin == dest){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Origin and Destination cannot be the same."))
+      );
+      return;
+    }
 
     setState(() {
       _isLoading = true;
