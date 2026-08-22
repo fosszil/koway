@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/bus_routes.dart';
 import '../theme/app_theme.dart';
@@ -45,20 +46,32 @@ class RouteDetailScreen extends StatelessWidget {
                 AppSpacing.lg,
                 AppSpacing.md,
               ),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(AppRadius.control),
-                  border: Border.all(color: AppColors.divider),
-                ),
-                child: const Text(
-                  'Route stops only. Timetable data is not available.',
-                  style: TextStyle(
-                    color: AppColors.muted,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    final opened = await launchUrl(
+                      Uri.parse('https://github.com/fosszil/koway/issues'),
+                      mode: LaunchMode.externalApplication,
+                    );
+
+                    if (!context.mounted || opened) return;
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Could not open the link')),
+                    );
+                  },
+                  icon: const Icon(Icons.edit_outlined, size: 18),
+                  label: const Text('Suggest a change to this route'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.forest,
+                    side: const BorderSide(color: AppColors.lightForest),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.md,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.control),
+                    ),
                   ),
                 ),
               ),
